@@ -64,6 +64,7 @@
             </select>
         </div>
 
+        <button onclick="copyToClipboard()">ASCIIアートをコピー</button>
         <pre id="result"></pre>
     </div>
 
@@ -175,6 +176,15 @@
             return ascii;
         }
 
+        // コピー機能
+        function copyToClipboard() {
+            const text = result.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('ASCIIアートをコピーしました');
+            }).catch(err => {
+                alert('コピーに失敗しました: ' + err);
+            });
+        }
     </script>
 </body>
 
