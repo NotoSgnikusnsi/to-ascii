@@ -65,6 +65,7 @@
         </div>
 
         <button onclick="copyToClipboard()">ASCIIアートをコピー</button>
+        <button onclick="saveAsImage()">画像として保存</button>
         <pre id="result"></pre>
     </div>
 
@@ -171,6 +172,7 @@
                 // グレースケール値を文字に変換
                 const charIndex = Math.floor((gray * (charset.length - 1)) / 255);
                 ascii += charset[charIndex];
+                ascii += charset[charIndex];
             }
 
             return ascii;
@@ -184,6 +186,38 @@
             }).catch(err => {
                 alert('コピーに失敗しました: ' + err);
             });
+        }
+
+        // ASCIIアートを画像として保存
+        function saveAsImage() {
+            const asciiArt = result.textContent;
+            const lines = asciiArt.split('\n');
+            const fontSize = 12;
+            const lineHeight = fontSize * 1.2;
+            const width = parseInt(document.getElementById('width').value) * fontSize;
+            const height = lines.length * lineHeight;
+
+            canvas.width = width;
+            canvas.height = height;
+
+            // 背景を白に
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, width, height);
+
+            // テキストの設定
+            ctx.fillStyle = 'black';
+            ctx.font = `${fontSize}px monospace`;
+
+            // ASCIIアートを描画
+            lines.forEach((line, index) => {
+                ctx.fillText(line, 0, (index + 1) * lineHeight);
+            });
+
+            // 画像として保存
+            const link = document.createElement('a');
+            link.download = 'ascii-art.png';
+            link.href = canvas.toDataURL();
+            link.click();
         }
     </script>
 </body>
