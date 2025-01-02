@@ -5,35 +5,136 @@
     <meta charset="UTF-8">
     <title>to-ascii</title>
     <style>
+        /* モダンなベーススタイル */
+        :root {
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --bg-primary: #fff;
+            --bg-secondary: #f7f7f7;
+            --space-xs: 0.5rem;
+            --space-s: 1rem;
+            --space-m: 1.5rem;
+            --space-l: 2rem;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            max-width: 800px;
+            font-family: system-ui, sans-serif;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            padding: var(--space-m);
+            max-width: 65ch;
             margin: 0 auto;
-            padding: 20px;
         }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        /* タイポグラフィ */
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 500;
+            margin-bottom: var(--space-l);
+            letter-spacing: -0.02em;
         }
 
+        /* フォーム要素 */
         .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            margin-bottom: var(--space-l);
         }
 
+        label {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xs);
+        }
+
+        /* 入力フィールド */
+        input[type="file"],
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: var(--space-s);
+            background: var(--bg-secondary);
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-bottom: var(--space-s);
+            transition: background 0.2s;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            background: #eee;
+        }
+
+        /* ボタン */
+        button {
+            background: var(--text-primary);
+            color: white;
+            border: none;
+            padding: var(--space-s) var(--space-m);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: var(--space-s);
+        }
+
+        button:hover {
+            background: #333;
+        }
+
+        button:active {
+            background: #000;
+        }
+
+        /* 結果表示 */
         #result {
+            background: var(--bg-secondary);
+            padding: var(--space-m);
+            border-radius: 6px;
+            font-family: monospace;
             white-space: pre;
-            background: #f0f0f0;
-            padding: 20px;
-            font-size: 12px;
+            line-height: 1.2;
+            margin-top: var(--space-m);
             overflow-x: auto;
         }
 
+        /* レスポンシブ対応 */
+        @media (min-width: 768px) {
+            .button-group {
+                display: flex;
+                gap: var(--space-s);
+            }
+
+            button {
+                flex: 1;
+                max-width: 200px;
+            }
+        }
+
+        /* アクセシビリティ用の非表示キャンバス */
         canvas {
-            display: none;
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* フォーカス表示 */
+        :focus-visible {
+            outline: 2px solid #000;
+            outline-offset: 2px;
         }
     </style>
 </head>
