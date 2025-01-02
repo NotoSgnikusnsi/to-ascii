@@ -193,7 +193,7 @@
             const lines = asciiArt.split('\n');
             const fontSize = 12;
             const lineHeight = fontSize * 1.2;
-            const width = Math.max(...lines.map(line => ctx.measureText(line).width));
+            const width = parseInt(document.getElementById('width').value) * fontSize;
             const height = lines.length * lineHeight;
 
             canvas.width = width;
